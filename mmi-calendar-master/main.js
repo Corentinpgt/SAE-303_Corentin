@@ -40,3 +40,23 @@ await M.init();
 
 // creating events in the calendar
 V.uicalendar.createEvents( M.getEvents("mmi2") );
+
+
+
+let C = {};
+
+let nav = document.querySelector("nav");
+
+C.handlerNav = function(ev) {
+   if (ev.target.dataset.id == "left") {
+      V.uicalendar.move(-1);
+   }
+   else if (ev.target.dataset.id == "mid") {
+      V.uicalendar.today();
+   }
+   else if (ev.target.dataset.id == "right") {
+      V.uicalendar.move(1);
+   }
+}
+
+nav.addEventListener("click",C.handlerNav);
