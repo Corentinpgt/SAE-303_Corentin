@@ -49,12 +49,71 @@ let event2 = M.getEvents("mmi2");
 let event3 = M.getEvents("mmi3");
 
 V.uicalendar.setCalendarVisibility(event1[0].calendarId, 0);
+V.uicalendar.setCalendarVisibility(event2[0].calendarId, 0);
 V.uicalendar.setCalendarVisibility(event3[0].calendarId, 0);
+
+
+
+
+
+
+
+let select = document.querySelector("#selectmmi");
+
+C.handlerSelect = function() {
+   let selectMmiValue = document.getElementById("selectmmi").value;
+
+   let changes = {};
+   event1.forEach(event => {
+
+      if (event.groups.includes(selectMmiValue)) {
+         changes.isVisible=true;
+      }
+      else {
+         changes.isVisible=false;
+      }   
+      V.uicalendar.updateEvent(event.id, event.calendarId, changes);
+   });
+
+   event2.forEach(event => {
+
+      if (event.groups.includes(selectMmiValue)) {
+         changes.isVisible=true;
+      }
+      else {
+         changes.isVisible=false;
+      }   
+      V.uicalendar.updateEvent(event.id, event.calendarId, changes);
+   });
+
+   event3.forEach(event => {
+
+      if (event.groups.includes(selectMmiValue)) {
+         changes.isVisible=true;
+      }
+      else {
+         changes.isVisible=false;
+      }   
+      V.uicalendar.updateEvent(event.id, event.calendarId, changes);
+   });
+
+
+
+}
+
+
+select.addEventListener("change",C.handlerSelect);
+
+
+
+
 
 
 let check = document.querySelector(".checkbox");
 
-C.handlerCheck = function(ev) {
+C.handlerCheck = function() {
+
+   let options = document.getElementById("selectmmi").children;
 
 
    let mmi1 = document.getElementById("mmi1");
@@ -63,23 +122,53 @@ C.handlerCheck = function(ev) {
    
    if (mmi1.checked) {
       V.uicalendar.setCalendarVisibility(event1[0].calendarId, 1);
+      for (let opt of options) {
+         if (opt.value.includes("BUT1")) {
+            opt.style.display = "block";
+         }
+      }
    }
    else {
       V.uicalendar.setCalendarVisibility(event1[0].calendarId, 0);
+      for (let opt of options) {
+         if (opt.value.includes("BUT1")) {
+            opt.style.display = "none";
+         }
+      }
    }
    
    if (mmi2.checked) {
       V.uicalendar.setCalendarVisibility(event2[0].calendarId, 1);
+      for (let opt of options) {
+         if (opt.value.includes("BUT2")) {
+            opt.style.display = "block";
+         }
+      }
    }
    else {
       V.uicalendar.setCalendarVisibility(event2[0].calendarId, 0);
+      for (let opt of options) {
+         if (opt.value.includes("BUT2")) {
+            opt.style.display = "none";
+         }
+      }
    }
    
    if (mmi3.checked) {
       V.uicalendar.setCalendarVisibility(event3[0].calendarId, 1);
+      for (let opt of options) {
+         if (opt.value.includes("BUT3")) {
+            opt.style.display = "block";
+         }
+      }
    }
    else {
       V.uicalendar.setCalendarVisibility(event3[0].calendarId, 0);
+      for (let opt of options) {
+         if (opt.value.includes("BUT3")) {
+            opt.style.display = "none";
+         }
+      }
    }
 }
 
@@ -110,9 +199,7 @@ C.handlerNav = function(ev) {
 nav.addEventListener("click",C.handlerNav);
 
 
-// let event1 = M.getEvents("mmi1");
-// let event2 = M.getEvents("mmi2");
-// let event3 = M.getEvents("mmi3");
+
 
 let changes = {};
 
@@ -166,5 +253,6 @@ event3.forEach(evnt => {
    V.uicalendar.updateEvent(evnt.id, evnt.calendarId, changes);
 
 });
+
 
 

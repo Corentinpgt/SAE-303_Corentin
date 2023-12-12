@@ -59,7 +59,8 @@ class Event {
             body: this.#description,
             start: this.#start,
             end: this.#end,
-            location: this.#location 
+            location: this.#location,
+            groups: this.#groups
         }
     }
 }
