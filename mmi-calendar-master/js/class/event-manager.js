@@ -25,6 +25,7 @@ class EventManager {
         return this.#description;
     }
 
+
     addEvents(events) {
         for(let uid in events) {
             let event = events[uid];

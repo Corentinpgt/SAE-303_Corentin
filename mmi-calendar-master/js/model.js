@@ -6,6 +6,7 @@ let Events = {
     mmi1: null,
     mmi2: null,
     mmi3: null
+    // mmiAll: null
 }
 
 let M = {};
@@ -19,25 +20,40 @@ M.getEvents = function(annee) {
 
 M.init = async function() {
     let data1 = await fetch('./data/mmi1.ics');
+    let data2 = await fetch('./data/mmi2.ics');
+    let data3 = await fetch('./data/mmi3.ics');
+
     data1 = await data1.text();
+    data2 = await data2.text();
+    data3 = await data3.text();
+    
+    
     data1 = ical.parseICS(data1);
+    data2 = ical.parseICS(data2);
+    data3 = ical.parseICS(data3);
+    
+    // let data = [data3,data2,data1];
+
+
     Events.mmi1 = new EventManager('mmi1', 'MMI 1', 'Agenda des MMI 1');
     Events.mmi1.addEvents(data1);
 
-    let data2 = await fetch('./data/mmi2.ics');
-    data2 = await data2.text();
-    data2 = ical.parseICS(data2);
     Events.mmi2 = new EventManager('mmi2', 'MMI 2', 'Agenda des MMI 2');
     Events.mmi2.addEvents(data2);
 
-    let data3 = await fetch('./data/mmi3.ics');
-    data3 = await data3.text();
-    data3 = ical.parseICS(data3);
     Events.mmi3 = new EventManager('mmi3', 'MMI 3', 'Agenda des MMI 3');
     Events.mmi3.addEvents(data3);
+
+    // Events.mmiAll = new EventManager('mmi', 'MMI', 'Agenda des MMI');
+    // data.forEach(annee => {
+    //     Events.mmiAll.addEvents(annee);
+        
+    // });
+
 }
 
 export { M };
+export { Events };
 
 
 /*

@@ -1,5 +1,7 @@
 import { M } from "./js/model.js";
 import { V } from "./js/view.js";
+import { Events } from "./js/model.js";
+import { EventManager } from "./js/class/event-manager.js";
 
 /*
    Ce fichier correspond au contrôleur de l'application. Il est chargé de faire le lien entre le modèle et la vue.
@@ -39,7 +41,9 @@ await M.init();
 // ]
 
 // creating events in the calendar
+V.uicalendar.createEvents( M.getEvents("mmi1") );
 V.uicalendar.createEvents( M.getEvents("mmi2") );
+V.uicalendar.createEvents( M.getEvents("mmi3") );
 
 
 
@@ -60,3 +64,63 @@ C.handlerNav = function(ev) {
 }
 
 nav.addEventListener("click",C.handlerNav);
+
+
+let event1 = M.getEvents("mmi1");
+let event2 = M.getEvents("mmi2");
+let event3 = M.getEvents("mmi3");
+
+let changes = {};
+
+event1.forEach(evnt => {
+   if (evnt.title.includes("CM")) {
+      changes.backgroundColor = "#751a2c";
+   }
+   else if (evnt.title.includes("TD")) {
+      changes.backgroundColor = "#b33a3a";
+   }
+   else if (evnt.title.includes("TP")) {
+      changes.backgroundColor = "#d57056";
+   }
+   else {
+      changes.backgroundColor = "#751a2c";
+   }
+   V.uicalendar.updateEvent(evnt.id, evnt.calendarId, changes);
+
+});
+
+event2.forEach(evnt => {
+   if (evnt.title.includes("CM")) {
+      changes.backgroundColor = "#344C11";
+   }
+   else if (evnt.title.includes("TD")) {
+      changes.backgroundColor = "#778D45";
+   }
+   else if (evnt.title.includes("TP")) {
+      changes.backgroundColor = "#AEC670";
+   }
+   else {
+      changes.backgroundColor = "#344C11";
+   }
+   V.uicalendar.updateEvent(evnt.id, evnt.calendarId, changes);
+
+});
+
+event3.forEach(evnt => {
+   if (evnt.title.includes("CM")) {
+      changes.backgroundColor = "#036280";
+   }
+   else if (evnt.title.includes("TD")) {
+      changes.backgroundColor = "#378BA4";
+   }
+   else if (evnt.title.includes("TP")) {
+      changes.backgroundColor = "#81BECE";
+   }
+   else {
+      changes.backgroundColor = "#036280";
+   }
+   V.uicalendar.updateEvent(evnt.id, evnt.calendarId, changes);
+
+});
+
+
