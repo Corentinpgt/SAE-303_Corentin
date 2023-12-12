@@ -3,3 +3,10 @@ nav ul {
     gap: 2rem;
     list-style: none;
 }
+
+.checkbox {
+    padding-left: 1rem;
+    display: flex;
+    gap: 1rem;
+    list-style: none;   
+}

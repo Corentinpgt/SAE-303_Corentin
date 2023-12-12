@@ -39,19 +39,63 @@ await M.init();
 //     end: '2023-12-13T15:30:00',
 //   },
 // ]
-
-// creating events in the calendar
+let C = {};
 V.uicalendar.createEvents( M.getEvents("mmi1") );
 V.uicalendar.createEvents( M.getEvents("mmi2") );
 V.uicalendar.createEvents( M.getEvents("mmi3") );
 
+let event1 = M.getEvents("mmi1");
+let event2 = M.getEvents("mmi2");
+let event3 = M.getEvents("mmi3");
+
+V.uicalendar.setCalendarVisibility(event1[0].calendarId, 0);
+V.uicalendar.setCalendarVisibility(event3[0].calendarId, 0);
 
 
-let C = {};
+let check = document.querySelector(".checkbox");
+
+C.handlerCheck = function(ev) {
+
+
+   let mmi1 = document.getElementById("mmi1");
+   let mmi2 = document.getElementById("mmi2");
+   let mmi3 = document.getElementById("mmi3");
+   
+   if (mmi1.checked) {
+      V.uicalendar.setCalendarVisibility(event1[0].calendarId, 1);
+   }
+   else {
+      V.uicalendar.setCalendarVisibility(event1[0].calendarId, 0);
+   }
+   
+   if (mmi2.checked) {
+      V.uicalendar.setCalendarVisibility(event2[0].calendarId, 1);
+   }
+   else {
+      V.uicalendar.setCalendarVisibility(event2[0].calendarId, 0);
+   }
+   
+   if (mmi3.checked) {
+      V.uicalendar.setCalendarVisibility(event3[0].calendarId, 1);
+   }
+   else {
+      V.uicalendar.setCalendarVisibility(event3[0].calendarId, 0);
+   }
+}
+
+
+check.addEventListener("change",C.handlerCheck);
+
+
+
+
+
 
 let nav = document.querySelector("nav");
 
 C.handlerNav = function(ev) {
+   
+   
    if (ev.target.dataset.id == "left") {
       V.uicalendar.move(-1);
    }
@@ -66,9 +110,9 @@ C.handlerNav = function(ev) {
 nav.addEventListener("click",C.handlerNav);
 
 
-let event1 = M.getEvents("mmi1");
-let event2 = M.getEvents("mmi2");
-let event3 = M.getEvents("mmi3");
+// let event1 = M.getEvents("mmi1");
+// let event2 = M.getEvents("mmi2");
+// let event3 = M.getEvents("mmi3");
 
 let changes = {};
 
