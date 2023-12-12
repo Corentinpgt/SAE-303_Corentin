@@ -256,3 +256,45 @@ event3.forEach(evnt => {
 
 
 
+
+
+let searchbtn = document.getElementById("searchbtn");
+
+
+C.handlerSearch = function(ev) {
+   let value = document.getElementById("searchbar").value;
+   let changes = {};
+   event1.forEach(event => {
+      if (event.location==value || event.title.includes(value)) {
+         changes.isVisible=true;
+      }
+      else {
+         changes.isVisible=false;
+      }
+      V.uicalendar.updateEvent(event.id, event.calendarId, changes);
+   });
+
+   event2.forEach(event => {
+      if (event.location==value || event.title.includes(value)) {
+         changes.isVisible=true;
+      }
+      else {
+         changes.isVisible=false;
+      }
+      V.uicalendar.updateEvent(event.id, event.calendarId, changes);
+   });
+
+   event3.forEach(event => {
+      if (event.location==value || event.title.includes(value)) {
+         changes.isVisible=true;
+      }
+      else {
+         changes.isVisible=false;
+      }
+      V.uicalendar.updateEvent(event.id, event.calendarId, changes);
+   });
+}
+
+
+searchbtn.addEventListener("click",C.handlerSearch);
+
