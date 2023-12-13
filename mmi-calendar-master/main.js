@@ -22,6 +22,14 @@ await M.init();
 
 let C = {};
 
+if(window.innerWidth <= 768){
+   V.uicalendar.changeView("day");
+}
+else {
+   V.uicalendar.changeView("week");
+}
+
+
 let tableMmi = [...M.getEvents("mmi1"),...M.getEvents("mmi2"),...M.getEvents("mmi3")];
 
 

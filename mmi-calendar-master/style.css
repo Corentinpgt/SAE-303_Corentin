@@ -1,19 +1,133 @@
+:root {
+    --grey : #8C9AAE;
+    --lightgrey : #C8BED1;
+    --orange : #EED0D6;
+    --pink : #FEE5FA;
+    --purple : #D9DFFF;
+}
+
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+
+
+
+/* body {
+    background-color: var(--grey);
+} */
+
+.main {
+    position: relative;
+}
+
 nav ul {
     display: flex;
     gap: 2rem;
     list-style: none;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.header__left {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+.header__tag {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header__checkbox {
+    margin: 1rem;
+}
+
+.header__select {
+    display: flex;
+    flex-direction: row;
+    gap: .75rem;
+    font-size: 1.2rem;
+}
+
+.header__searchbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav {
+    position: absolute;
+    scale: 1.5;
+    bottom: -2rem;
+    left: calc(50% - 4rem);
+    z-index: 1;
 }
 
 .checkbox {
-    padding-left: 1rem;
     display: flex;
+    flex-direction: row;
     gap: 1rem;
-    list-style: none;   
+    list-style: none;
+    font-size: 1.2rem;
+}
+
+.checkbox li {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.checkbox input {
+    scale: 1.2;
+}
+
+.checkbox label {
+    
+}
+
+.header__view {
+    margin: 1rem;
 }
 
 .view {
-    padding-left: 1rem;
     display: flex;
     gap: 1rem;
     list-style: none;   
+    flex-direction: row;
 }

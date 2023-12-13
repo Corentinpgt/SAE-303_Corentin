@@ -1,82 +1,99 @@
 <!doctype html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
-    <title>MMI Calendar</title>
-  </head>
-  <body>
-  
-    <div>
-      <header>
-        <nav>
-         <ul>
-          <li>
-            <img data-id="left" src="assets/arrow_left.svg" alt="">
-          </li>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
+  <title>MMI Calendar</title>
+</head>
+<body>
 
-          <li>
-            <img data-id="mid" src="assets/clock.svg" alt="">
-          </li>
+  <div class="main">
+    <header>
+      <nav class="nav">
+        <ul>
+        <li>
+          <img data-id="left" src="assets/arrow_left.svg" alt="">
+        </li>
 
-          <li>
-            <img data-id="right" src="assets/arrow_right.svg" alt="">
-          </li>
-         </ul>
-        </nav>
+        <li>
+          <img data-id="mid" src="assets/clock.svg" alt="">
+        </li>
 
-        <ul class="checkbox">
-          <li>
-            <input type="checkbox" id="mmi1" checked/>
-            <label for="mmi1">MMI1</label>
-          </li>
-
-          <li>
-            <input type="checkbox" id="mmi2" checked/>
-            <label for="mmi2">MMI2</label>
-          </li>
-
-          <li>
-            <input type="checkbox" id="mmi3" checked/>
-            <label for="mmi3">MMI3</label>
-          </li>
+        <li>
+          <img data-id="right" src="assets/arrow_right.svg" alt="">
+        </li>
         </ul>
+      </nav>
 
-        <label for="selectmmi">Groupe : MMI</label>
-        <select id="selectmmi">
-          <option value="BUT1-G1">BUT1-G1</option>
-          <option value="BUT1-G21">BUT1-G21</option>
-          <option value="BUT1-G22">BUT1-G22</option>
-          <option value="BUT1-G3">BUT1-G3</option>
+      
+      <section class="header__left">
 
-          <option value="BUT2-G1">BUT2-G1</option>
-          <option value="BUT2-G21">BUT2-G21</option>
-          <option value="BUT2-G22">BUT2-G22</option>
-          <option value="BUT2-G3">BUT2-G3</option>
+        <section class="header__tag">
 
-          <option value="BUT3-G1">BUT3-G1</option>
-          <option value="BUT3-G21">BUT3-G21</option>
-          <option value="BUT3-G22">BUT3-G22</option>
-          <option value="BUT3-G3">BUT3-G3</option>
-        </select>
+          <section class="header__checkbox">
+            <ul class="checkbox">
+              <li>
+                <input type="checkbox" id="mmi1" checked/>
+                <label for="mmi1">MMI1</label>
+              </li>
+    
+              <li>
+                <input type="checkbox" id="mmi2" checked/>
+                <label for="mmi2">MMI2</label>
+              </li>
+    
+              <li>
+                <input type="checkbox" id="mmi3" checked/>
+                <label for="mmi3">MMI3</label>
+              </li>
+            </ul>
+          </section>
+  
+          <section class="header__select">
+            <label for="selectmmi">Groupe : MMI</label>
+            <select id="selectmmi">
+              <option value="BUT1-G1">BUT1-G1</option>
+              <option value="BUT1-G21">BUT1-G21</option>
+              <option value="BUT1-G22">BUT1-G22</option>
+              <option value="BUT1-G3">BUT1-G3</option>
+    
+              <option value="BUT2-G1">BUT2-G1</option>
+              <option value="BUT2-G21">BUT2-G21</option>
+              <option value="BUT2-G22">BUT2-G22</option>
+              <option value="BUT2-G3">BUT2-G3</option>
+    
+              <option value="BUT3-G1">BUT3-G1</option>
+              <option value="BUT3-G21">BUT3-G21</option>
+              <option value="BUT3-G22">BUT3-G22</option>
+              <option value="BUT3-G3">BUT3-G3</option>
+            </select>
+          </section>
 
-        <input id="searchbar" placeholder="Une ressource, une salle..." type="text">
-        <label for="searchbar"><button id="searchbtn">Rechercher</button></label>
+        </section>
 
+        <section class="header__searchbar">
+          <input id="searchbar" placeholder="Une ressource, une salle..." type="text">
+          <label for="searchbar"><button id="searchbtn">Rechercher</button></label>
+        </section>
 
+      </section>
+
+      <section class="header__view">
         <ul class="view">
           <li><button data-id="day">Day</button></li>
           <li><button data-id="week">Week</button></li>
           <li><button data-id="month">Month</button></li>
         </ul>
+      </section>
 
-      </header>
 
-      <main id="calendar" style="height: 800px"></main>
-    </div>
+    </header>
 
-    <script type="module" src="/main.js"></script>
-    
-  </body>
+    <main id="calendar" style="height: 80vh"></main>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+  
+</body>
 </html>
