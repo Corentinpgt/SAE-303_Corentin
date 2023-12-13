@@ -26,4 +26,10 @@ V.uicalendar = new Calendar('#calendar', {
  
 });
 
+V.colorMap = {
+  "mmi1": {CM:"#751a2c",TD:"#b33a3a",TP:"#d57056",OTHER:"#751a2c"},
+  "mmi2": {CM:"#344C11",TD:"#778D45",TP:"#AEC670",OTHER:"#344C11"},
+  "mmi3": {CM:"#036280",TD:"#378BA4",TP:"#81BECE",OTHER:"#036280"}
+}
+
 export { V };

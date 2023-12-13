@@ -8,6 +8,7 @@ class Event {
     #end;
     #location;
     #groups;
+    #type;
 
     constructor(id, summary, description, start, end, location) {
         this.#id = id;
@@ -20,7 +21,21 @@ class Event {
         this.#groups = summary.slice(summary.lastIndexOf(',')+1);
         this.#groups = this.#groups.split('.');
         this.#groups = this.#groups.map( gr => gr.replace(/\s/g, "") );
+        
+        if (this.#summary.includes("CM")) {
+            this.#type = "CM";
+        }
+        else if (this.#summary.includes("TD")) {
+            this.#type = "TD";
+        }
+        else if (this.#summary.includes("TP")) {
+            this.#type = "TP";
+        }
+        else {
+            this.#type = "OTHER";
+        }
     }
+
 
     get id() {
         return this.#id;
@@ -60,7 +75,8 @@ class Event {
             start: this.#start,
             end: this.#end,
             location: this.#location,
-            groups: this.#groups
+            groups: this.#groups,
+            type: this.#type
         }
     }
 }
