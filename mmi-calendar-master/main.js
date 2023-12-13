@@ -54,8 +54,7 @@ tableMmi.forEach(event => {
 V.uicalendar.createEvents( evt1 );
 V.uicalendar.createEvents( evt2 );
 V.uicalendar.createEvents( evt3 );
-V.uicalendar.setCalendarVisibility(evt1[0].calendarId, false);
-V.uicalendar.setCalendarVisibility(evt3[0].calendarId, false);
+
 
 
 
@@ -96,7 +95,7 @@ let check = document.querySelector(".checkbox");
 C.handlerCheck = function() {
    
    
-   let searchValue = document.getElementById("searchbar").value;
+   let searchValue = document.getElementById("searchbar").value.toLowerCase();
    
    if (searchValue=="") {
 
@@ -105,8 +104,6 @@ C.handlerCheck = function() {
       V.uicalendar.createEvents( evt1 );
       V.uicalendar.createEvents( evt2 );
       V.uicalendar.createEvents( evt3 );
-      V.uicalendar.setCalendarVisibility(evt1[0].calendarId, false);
-      V.uicalendar.setCalendarVisibility(evt3[0].calendarId, false);
    
    
       let options = document.getElementById("selectmmi").children;
@@ -169,30 +166,67 @@ C.handlerCheck = function() {
 
       let resultSearch = [];
 
+      let options = document.getElementById("selectmmi").children;   
+
       let mmi = [document.getElementById("mmi1"), document.getElementById("mmi2"), document.getElementById("mmi3")]
    
       if (mmi[0].checked) {
          evt1.forEach(event => {
-            if (event.location==searchValue || event.title.includes(searchValue)) {
+            if (event.location.toLowerCase()==searchValue || event.title.toLowerCase().includes(searchValue)) {
                resultSearch.push(event)
             }
          });
-         
+         for (let opt of options) {
+            if (opt.value.includes("BUT1")) {
+               opt.style.display = "block";
+            }
+         }         
+      }
+      else {
+         for (let opt of options) {
+            if (opt.value.includes("BUT1")) {
+               opt.style.display = "none";
+            }
+         }
       }
       if (mmi[1].checked) {
          evt2.forEach(event => {
-            if (event.location==searchValue || event.title.includes(searchValue)) {
+            if (event.location.toLowerCase()==searchValue || event.title.toLowerCase().includes(searchValue)) {
                resultSearch.push(event)
             }
          });
+         for (let opt of options) {
+            if (opt.value.includes("BUT2")) {
+               opt.style.display = "block";
+            }
+         }
+      }
+      else {
+         for (let opt of options) {
+            if (opt.value.includes("BUT2")) {
+               opt.style.display = "none";
+            }
+         }
       }
    
       if (mmi[2].checked) {
          evt3.forEach(event => {
-            if (event.location==searchValue || event.title.includes(searchValue)) {
+            if (event.location.toLowerCase()==searchValue || event.title.toLowerCase().includes(searchValue)) {
                resultSearch.push(event)
             }
          });
+         for (let opt of options) {
+            if (opt.value.includes("BUT3")) {
+               opt.style.display = "block";
+            }
+         }
+      }
+      else {
+         for (let opt of options) {
+            if (opt.value.includes("BUT3")) {
+               opt.style.display = "none";
+            }
+         }
       }
       V.uicalendar.clear();
       V.uicalendar.createEvents( resultSearch );
@@ -240,7 +274,7 @@ select.addEventListener("change",C.handlerSelect);
 
 
 
-// IT 6 --------------------
+// IT 6 et 7 --------------------
 
 
 
@@ -248,14 +282,19 @@ select.addEventListener("change",C.handlerSelect);
 let searchbtn = document.getElementById("searchbtn");
 
 
-C.handlerSearch = function(ev) {
-   let value = document.getElementById("searchbar").value;
-   let newSearchEvent = [];
-   tableMmi.forEach(event => {
-      if (event.location==value || event.title.includes(value)) {
-         newSearchEvent.push(event)
+C.handlerSearch = function() {
+   let mmi = [document.getElementById("mmi1"), document.getElementById("mmi2"), document.getElementById("mmi3")]
+
+   let value = document.getElementById("searchbar").value.toLowerCase();
+   let multiple = value.split(" ");
+   let newSearchEvent = tableMmi.filter(event => multiple.every(recherche => event.title.toLowerCase().includes(recherche) || event.location.toLowerCase().includes(recherche)));
+
+   mmi.forEach(check => {
+      if ( check.checked) {
+         check.click();
       }
    });
+   
    V.uicalendar.clear();
    V.uicalendar.createEvents(newSearchEvent);
 
