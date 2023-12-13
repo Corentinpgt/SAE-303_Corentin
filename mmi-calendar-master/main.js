@@ -95,71 +95,110 @@ let check = document.querySelector(".checkbox");
 
 C.handlerCheck = function() {
    
-   V.uicalendar.clear();
    
+   let searchValue = document.getElementById("searchbar").value;
    
+   if (searchValue=="") {
 
-   V.uicalendar.createEvents( evt1 );
-   V.uicalendar.createEvents( evt2 );
-   V.uicalendar.createEvents( evt3 );
-   V.uicalendar.setCalendarVisibility(evt1[0].calendarId, false);
-   V.uicalendar.setCalendarVisibility(evt3[0].calendarId, false);
-
-
-   let options = document.getElementById("selectmmi").children;
-
-   let mmi = [document.getElementById("mmi1"), document.getElementById("mmi2"), document.getElementById("mmi3")]
-
-   if (mmi[0].checked) {
-      V.uicalendar.setCalendarVisibility(evt1[0].calendarId, true);
-      for (let opt of options) {
-         if (opt.value.includes("BUT1")) {
-            opt.style.display = "block";
-         }
-      }
-   }
-   else if (mmi[0].checked==false) {
+      V.uicalendar.clear();
+   
+      V.uicalendar.createEvents( evt1 );
+      V.uicalendar.createEvents( evt2 );
+      V.uicalendar.createEvents( evt3 );
       V.uicalendar.setCalendarVisibility(evt1[0].calendarId, false);
-      for (let opt of options) {
-         if (opt.value.includes("BUT1")) {
-            opt.style.display = "none";
-         }
-      }
-   }
-
-   if (mmi[1].checked) {
-      V.uicalendar.setCalendarVisibility(evt2[0].calendarId, true);
-      for (let opt of options) {
-         if (opt.value.includes("BUT2")) {
-            opt.style.display = "block";
-         }
-      }
-   }
-   else if (mmi[1].checked==false) {
-      V.uicalendar.setCalendarVisibility(evt2[0].calendarId, false);
-      for (let opt of options) {
-         if (opt.value.includes("BUT2")) {
-            opt.style.display = "none";
-         }
-      }
-   }
-
-   if (mmi[2].checked) {
-      V.uicalendar.setCalendarVisibility(evt3[0].calendarId, true);
-      for (let opt of options) {
-         if (opt.value.includes("BUT3")) {
-            opt.style.display = "block";
-         }
-      }
-   }
-   else if (mmi[2].checked==false) {
       V.uicalendar.setCalendarVisibility(evt3[0].calendarId, false);
-      for (let opt of options) {
-         if (opt.value.includes("BUT3")) {
-            opt.style.display = "none";
+   
+   
+      let options = document.getElementById("selectmmi").children;
+   
+      let mmi = [document.getElementById("mmi1"), document.getElementById("mmi2"), document.getElementById("mmi3")]
+   
+      if (mmi[0].checked) {
+         V.uicalendar.setCalendarVisibility(evt1[0].calendarId, true);
+         for (let opt of options) {
+            if (opt.value.includes("BUT1")) {
+               opt.style.display = "block";
+            }
+         }
+      }
+      else if (mmi[0].checked==false) {
+         V.uicalendar.setCalendarVisibility(evt1[0].calendarId, false);
+         for (let opt of options) {
+            if (opt.value.includes("BUT1")) {
+               opt.style.display = "none";
+            }
+         }
+      }
+   
+      if (mmi[1].checked) {
+         V.uicalendar.setCalendarVisibility(evt2[0].calendarId, true);
+         for (let opt of options) {
+            if (opt.value.includes("BUT2")) {
+               opt.style.display = "block";
+            }
+         }
+      }
+      else if (mmi[1].checked==false) {
+         V.uicalendar.setCalendarVisibility(evt2[0].calendarId, false);
+         for (let opt of options) {
+            if (opt.value.includes("BUT2")) {
+               opt.style.display = "none";
+            }
+         }
+      }
+   
+      if (mmi[2].checked) {
+         V.uicalendar.setCalendarVisibility(evt3[0].calendarId, true);
+         for (let opt of options) {
+            if (opt.value.includes("BUT3")) {
+               opt.style.display = "block";
+            }
+         }
+      }
+      else if (mmi[2].checked==false) {
+         V.uicalendar.setCalendarVisibility(evt3[0].calendarId, false);
+         for (let opt of options) {
+            if (opt.value.includes("BUT3")) {
+               opt.style.display = "none";
+            }
          }
       }
    }
+
+   else {
+
+      let resultSearch = [];
+
+      let mmi = [document.getElementById("mmi1"), document.getElementById("mmi2"), document.getElementById("mmi3")]
+   
+      if (mmi[0].checked) {
+         evt1.forEach(event => {
+            if (event.location==searchValue || event.title.includes(searchValue)) {
+               resultSearch.push(event)
+            }
+         });
+         
+      }
+      if (mmi[1].checked) {
+         evt2.forEach(event => {
+            if (event.location==searchValue || event.title.includes(searchValue)) {
+               resultSearch.push(event)
+            }
+         });
+      }
+   
+      if (mmi[2].checked) {
+         evt3.forEach(event => {
+            if (event.location==searchValue || event.title.includes(searchValue)) {
+               resultSearch.push(event)
+            }
+         });
+      }
+      V.uicalendar.clear();
+      V.uicalendar.createEvents( resultSearch );
+      resultSearch=[];
+   }
+   
    
 }
 
