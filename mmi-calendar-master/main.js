@@ -217,9 +217,17 @@ let select = document.querySelector("#selectmmi");
 
 
 C.handlerSelect = function() {
+   let mmi = [document.getElementById("mmi1"), document.getElementById("mmi2"), document.getElementById("mmi3")]
+
    let selectMmiValue = document.getElementById("selectmmi").value;
 
    let eventFiltered = tableMmi.filter(event => event.groups.includes(selectMmiValue));
+   
+   mmi.forEach(check => {
+      if ( check.checked) {
+         check.click();
+      }
+   });
 
    V.uicalendar.clear();
 
@@ -255,3 +263,28 @@ C.handlerSearch = function(ev) {
 
 
 searchbtn.addEventListener("click",C.handlerSearch);
+
+
+
+
+
+// IT 8 --------------------
+
+let btnView = document.querySelector(".view");
+
+
+C.handlerView = function(ev) {
+   let btnId = ev.target.dataset.id;
+   if (btnId == "day") {
+      V.uicalendar.changeView("day");
+   }
+   else if (btnId == "week") {
+      V.uicalendar.changeView("week");
+   }
+   else if (btnId == "month") {
+      V.uicalendar.changeView("month");
+   }
+}
+
+
+btnView.addEventListener("click",C.handlerView);

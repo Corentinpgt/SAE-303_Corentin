@@ -6,7 +6,6 @@ let Events = {
     mmi1: null,
     mmi2: null,
     mmi3: null
-    // mmiAll: null
 }
 
 let M = {};
@@ -32,7 +31,6 @@ M.init = async function() {
     data2 = ical.parseICS(data2);
     data3 = ical.parseICS(data3);
     
-    // let data = [data3,data2,data1];
 
 
     Events.mmi1 = new EventManager('mmi1', 'MMI 1', 'Agenda des MMI 1');
@@ -44,11 +42,6 @@ M.init = async function() {
     Events.mmi3 = new EventManager('mmi3', 'MMI 3', 'Agenda des MMI 3');
     Events.mmi3.addEvents(data3);
 
-    // Events.mmiAll = new EventManager('mmi', 'MMI', 'Agenda des MMI');
-    // data.forEach(annee => {
-    //     Events.mmiAll.addEvents(annee);
-        
-    // });
 
 }
 
