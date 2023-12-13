@@ -3,21 +3,12 @@ import { V } from "./js/view.js";
 import { Events } from "./js/model.js";
 import { EventManager } from "./js/class/event-manager.js";
 
-/*
-   Ce fichier correspond au contrôleur de l'application. Il est chargé de faire le lien entre le modèle et la vue.
-   Le modèle et la vue sont définis dans les fichiers js/model.js et js/view.js et importés (M et V, parties "publiques") dans ce fichier.
-   Le modèle contient les données (les événements des 3 années de MMI).
-   La vue contient tout ce qui est propre à l'interface et en particulier le composant Toast UI Calendar.
-   Le principe sera toujours le même : le contrôleur va récupérer les données du modèle et les passer à la vue.
-   Toute opération de filtrage des données devra être définie dans le modèle.
-   Et en fonction des actions de l'utilisateur, le contrôleur pourra demander au modèle de lui retourner des données filtrées
-   pour ensuite les passer à la vue pour affichage.
 
-   Exception : Afficher 1, 2 ou les 3 années de formation sans autre filtrage peut être géré uniquement au niveau de la vue.
-*/
-   
 
-// loadind data (and wait for it !)
+
+
+
+
 await M.init();
 
 let C = {};
@@ -28,6 +19,7 @@ if(window.innerWidth <= 768){
 else {
    V.uicalendar.changeView("week");
 }
+
 
 
 let tableMmi = [...M.getEvents("mmi1"),...M.getEvents("mmi2"),...M.getEvents("mmi3")];
@@ -58,10 +50,6 @@ tableMmi.forEach(event => {
    }
 });
 
-
-V.uicalendar.createEvents( evt1 );
-V.uicalendar.createEvents( evt2 );
-V.uicalendar.createEvents( evt3 );
 
 
 
@@ -112,8 +100,7 @@ C.handlerCheck = function() {
       V.uicalendar.createEvents( evt1 );
       V.uicalendar.createEvents( evt2 );
       V.uicalendar.createEvents( evt3 );
-   
-   
+
       let options = document.getElementById("selectmmi").children;
    
       let mmi = [document.getElementById("mmi1"), document.getElementById("mmi2"), document.getElementById("mmi3")]
@@ -240,6 +227,7 @@ C.handlerCheck = function() {
       V.uicalendar.createEvents( resultSearch );
       resultSearch=[];
    }
+   setStorageCheck();
    
    
 }
@@ -262,18 +250,30 @@ C.handlerSelect = function() {
    let mmi = [document.getElementById("mmi1"), document.getElementById("mmi2"), document.getElementById("mmi3")]
 
    let selectMmiValue = document.getElementById("selectmmi").value;
-
-   let eventFiltered = tableMmi.filter(event => event.groups.includes(selectMmiValue));
    
-   mmi.forEach(check => {
-      if ( check.checked) {
-         check.click();
-      }
-   });
+   let eventFiltered = [];
 
-   V.uicalendar.clear();
+   if (selectMmiValue == "none") {
+      C.handlerCheck();
+   }
+   else {
+      eventFiltered = tableMmi.filter(event => event.groups.includes(selectMmiValue));
 
-   V.uicalendar.createEvents( eventFiltered );
+      mmi.forEach(check => {
+         if ( check.checked) {
+            check.click();
+         }
+      });
+
+      V.uicalendar.clear();
+   
+      V.uicalendar.createEvents( eventFiltered );
+   }
+
+   
+
+
+   setStorageSelect();
 
 }
 
@@ -335,3 +335,87 @@ C.handlerView = function(ev) {
 
 
 btnView.addEventListener("click",C.handlerView);
+
+
+
+
+
+
+// IT 10 --------------------
+
+
+
+
+
+let setStorageCheck = function() {
+   
+   let mmi = [document.getElementById("mmi1"), document.getElementById("mmi2"), document.getElementById("mmi3")]
+   
+   localStorage.setItem("CheckBox1",mmi[0].checked);
+   localStorage.setItem("CheckBox2",mmi[1].checked);
+   localStorage.setItem("CheckBox3",mmi[2].checked);
+   
+}
+
+let setStorageSelect = function() {
+   
+   localStorage.setItem("Options",document.getElementById("selectmmi").value)
+   
+}
+
+let getStorage = function() {
+
+   V.uicalendar.clear()
+   
+   let mmi = [document.getElementById("mmi1"), document.getElementById("mmi2"), document.getElementById("mmi3")]
+
+   let check = [localStorage.getItem("CheckBox1"), localStorage.getItem("CheckBox2"), localStorage.getItem("CheckBox3")]
+
+   let evt = [evt1,evt2,evt3];
+
+   let options = localStorage.getItem("Options");
+
+   for (let i = 0; i < check.length; i++) {
+      
+      if (check[i] == "true") {
+   
+         V.uicalendar.createEvents( evt[i] );
+   
+         if (mmi[i].checked==false) {
+            mmi[i].click();
+         }
+      }
+      else {
+         if (mmi[i].checked) {
+            mmi[i].click();
+         }
+      }
+      
+   }
+
+
+
+   let eventFiltered = [];
+
+
+   if (options == "none") {
+      C.handlerCheck();
+   }
+   else {
+      eventFiltered = tableMmi.filter(event => event.groups.includes(options));
+      
+      mmi.forEach(check => {
+         if ( check.checked) {
+            check.click();
+         }
+      });
+
+      V.uicalendar.clear();
+   
+      V.uicalendar.createEvents( eventFiltered );
+   }
+   
+}
+
+
+getStorage();
