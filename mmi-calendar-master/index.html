@@ -9,78 +9,84 @@
 <body>
 
   <div class="main">
+
+    <!-- NAV -->
+
+
+
+    
     <header>
-      <nav class="nav">
-        <ul>
-        <li>
-          <img data-id="left" src="assets/arrow_left.svg" alt="">
-        </li>
 
-        <li>
-          <img data-id="mid" src="assets/clock.svg" alt="">
-        </li>
+      <section class="titleCheckSelect">
 
-        <li>
-          <img data-id="right" src="assets/arrow_right.svg" alt="">
-        </li>
-        </ul>
-      </nav>
+        <h1>Calendrier MMI</h1>
 
-      
-      <section class="header__left">
-
-        <section class="header__tag">
-
-          <section class="header__checkbox">
-            <ul class="checkbox">
-              <li>
-                <input type="checkbox" id="mmi1"/>
-                <label for="mmi1">MMI1</label>
-              </li>
-    
-              <li>
-                <input type="checkbox" id="mmi2"/>
-                <label for="mmi2">MMI2</label>
-              </li>
-    
-              <li>
-                <input type="checkbox" id="mmi3"/>
-                <label for="mmi3">MMI3</label>
-              </li>
-            </ul>
-          </section>
+        <section class="CheckSelect">
   
+  
+            <!-- CheckBox -->
+  
+            <section class="header__checkbox">
+              <ul class="checkbox">
+                <li>
+                  <input type="checkbox" id="mmi1"/>
+                  <label for="mmi1">MMI1</label>
+                </li>
+  
+                <li>
+                  <input type="checkbox" id="mmi2"/>
+                  <label for="mmi2">MMI2</label>
+                </li>
+  
+                <li>
+                  <input type="checkbox" id="mmi3"/>
+                  <label for="mmi3">MMI3</label>
+                </li>
+              </ul>
+            </section>
+  
+        
+        
+          <!-- Select -->
+          
           <section class="header__select">
             <label for="selectmmi">Groupe : MMI</label>
             <select id="selectmmi">
               <option></option>
               <option value="none">Aucun filtre</option>
-
+              
               <option value="BUT1-G1">BUT1-G1</option>
               <option value="BUT1-G21">BUT1-G21</option>
               <option value="BUT1-G22">BUT1-G22</option>
               <option value="BUT1-G3">BUT1-G3</option>
-    
+              
               <option value="BUT2-G1">BUT2-G1</option>
               <option value="BUT2-G21">BUT2-G21</option>
               <option value="BUT2-G22">BUT2-G22</option>
               <option value="BUT2-G3">BUT2-G3</option>
-    
+              
               <option value="BUT3-G1">BUT3-G1</option>
               <option value="BUT3-G21">BUT3-G21</option>
               <option value="BUT3-G22">BUT3-G22</option>
               <option value="BUT3-G3">BUT3-G3</option>
             </select>
           </section>
-
-        </section>
-
-        <section class="header__searchbar">
-          <input id="searchbar" placeholder="Une ressource, une salle..." type="text">
-          <label for="searchbar"><button id="searchbtn">Rechercher</button></label>
+        
         </section>
 
       </section>
+
+
+
+      <!-- SearchBar -->
+
+      <section class="header__searchbar">
+        <input id="searchbar" placeholder="Une ressource, une salle..." type="text">
+        <label for="searchbar"><button id="searchbtn">Rechercher</button></label>
+      </section>
+
+
+      <!-- View -->
 
       <section class="header__view">
         <ul class="view">
@@ -93,7 +99,23 @@
 
     </header>
 
-    <main id="calendar" style="height: 80vh"></main>
+    <main id="calendar" style="height: 900px">
+      <nav class="nav">
+        <ul>
+          <li>
+            <img data-id="left" src="assets/arrow_left.svg" alt="">
+          </li>
+  
+          <li>
+            <img data-id="mid" src="assets/clock.svg" alt="">
+          </li>
+          
+          <li>
+            <img data-id="right" src="assets/arrow_right.svg" alt="">
+          </li>
+        </ul>
+      </nav>
+    </main>
   </div>
 
   <script type="module" src="/main.js"></script>

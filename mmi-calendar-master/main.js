@@ -84,7 +84,7 @@ nav.addEventListener("click",C.handlerNav);
 // IT 4 --------------------
 
 
-
+// Affichage des événements en fonction des années choisies 
 
 let check = document.querySelector(".checkbox");
 
@@ -92,6 +92,9 @@ C.handlerCheck = function() {
    
    
    let searchValue = document.getElementById("searchbar").value.toLowerCase();
+   let options = document.getElementById("selectmmi").children;
+   let mmi = [document.getElementById("mmi1"), document.getElementById("mmi2"), document.getElementById("mmi3")]
+   let evt = [evt1,evt2,evt3];
    
    if (searchValue=="") {
 
@@ -101,57 +104,25 @@ C.handlerCheck = function() {
       V.uicalendar.createEvents( evt2 );
       V.uicalendar.createEvents( evt3 );
 
-      let options = document.getElementById("selectmmi").children;
    
-      let mmi = [document.getElementById("mmi1"), document.getElementById("mmi2"), document.getElementById("mmi3")]
-   
-      if (mmi[0].checked) {
-         V.uicalendar.setCalendarVisibility(evt1[0].calendarId, true);
-         for (let opt of options) {
-            if (opt.value.includes("BUT1")) {
-               opt.style.display = "block";
+
+      for (let i = 0; i < mmi.length; i++) {
+         let but = "BUT"+(i+1);
+         if ( mmi[i].checked ) {
+            V.uicalendar.setCalendarVisibility(evt[i][0].calendarId, true);
+            // affichage dynamique des options du selecteur de groupe
+            for (let opt of options) {
+               if (opt.value.includes(but)) {
+                  opt.style.display = "block";
+               }
             }
          }
-      }
-      else if (mmi[0].checked==false) {
-         V.uicalendar.setCalendarVisibility(evt1[0].calendarId, false);
-         for (let opt of options) {
-            if (opt.value.includes("BUT1")) {
-               opt.style.display = "none";
-            }
-         }
-      }
-   
-      if (mmi[1].checked) {
-         V.uicalendar.setCalendarVisibility(evt2[0].calendarId, true);
-         for (let opt of options) {
-            if (opt.value.includes("BUT2")) {
-               opt.style.display = "block";
-            }
-         }
-      }
-      else if (mmi[1].checked==false) {
-         V.uicalendar.setCalendarVisibility(evt2[0].calendarId, false);
-         for (let opt of options) {
-            if (opt.value.includes("BUT2")) {
-               opt.style.display = "none";
-            }
-         }
-      }
-   
-      if (mmi[2].checked) {
-         V.uicalendar.setCalendarVisibility(evt3[0].calendarId, true);
-         for (let opt of options) {
-            if (opt.value.includes("BUT3")) {
-               opt.style.display = "block";
-            }
-         }
-      }
-      else if (mmi[2].checked==false) {
-         V.uicalendar.setCalendarVisibility(evt3[0].calendarId, false);
-         for (let opt of options) {
-            if (opt.value.includes("BUT3")) {
-               opt.style.display = "none";
+         else {
+            V.uicalendar.setCalendarVisibility(evt[i][0].calendarId, false);
+            for (let opt of options) {
+               if (opt.value.includes(but)) {
+                  opt.style.display = "none";
+               }
             }
          }
       }
@@ -160,69 +131,30 @@ C.handlerCheck = function() {
    else {
 
       let resultSearch = [];
-
-      let options = document.getElementById("selectmmi").children;   
-
-      let mmi = [document.getElementById("mmi1"), document.getElementById("mmi2"), document.getElementById("mmi3")]
-   
-      if (mmi[0].checked) {
-         evt1.forEach(event => {
-            if (event.location.toLowerCase()==searchValue || event.title.toLowerCase().includes(searchValue)) {
-               resultSearch.push(event)
-            }
-         });
-         for (let opt of options) {
-            if (opt.value.includes("BUT1")) {
-               opt.style.display = "block";
-            }
-         }         
-      }
-      else {
-         for (let opt of options) {
-            if (opt.value.includes("BUT1")) {
-               opt.style.display = "none";
+      for (let i = 0; i < mmi.length; i++) {
+         let but = "BUT"+(i+1);
+         if (mmi[i].checked) {
+            evt[i].forEach(event => {
+               if (event.location.toLowerCase()==searchValue || event.title.toLowerCase().includes(searchValue)) {
+                  resultSearch.push(event)
+               }
+            });
+            for (let opt of options) {
+               if (opt.value.includes(but)) {
+                  opt.style.display = "block";
+               }
+            } 
+         }
+         else {
+            for (let opt of options) {
+               if (opt.value.includes(but)) {
+                  opt.style.display = "none";
+               }
             }
          }
+         
       }
-      if (mmi[1].checked) {
-         evt2.forEach(event => {
-            if (event.location.toLowerCase()==searchValue || event.title.toLowerCase().includes(searchValue)) {
-               resultSearch.push(event)
-            }
-         });
-         for (let opt of options) {
-            if (opt.value.includes("BUT2")) {
-               opt.style.display = "block";
-            }
-         }
-      }
-      else {
-         for (let opt of options) {
-            if (opt.value.includes("BUT2")) {
-               opt.style.display = "none";
-            }
-         }
-      }
-   
-      if (mmi[2].checked) {
-         evt3.forEach(event => {
-            if (event.location.toLowerCase()==searchValue || event.title.toLowerCase().includes(searchValue)) {
-               resultSearch.push(event)
-            }
-         });
-         for (let opt of options) {
-            if (opt.value.includes("BUT3")) {
-               opt.style.display = "block";
-            }
-         }
-      }
-      else {
-         for (let opt of options) {
-            if (opt.value.includes("BUT3")) {
-               opt.style.display = "none";
-            }
-         }
-      }
+      
       V.uicalendar.clear();
       V.uicalendar.createEvents( resultSearch );
       resultSearch=[];
@@ -253,12 +185,14 @@ C.handlerSelect = function() {
    
    let eventFiltered = [];
 
+   // enlève le filtrage par groupe
    if (selectMmiValue == "none") {
       C.handlerCheck();
    }
    else {
       eventFiltered = tableMmi.filter(event => event.groups.includes(selectMmiValue));
 
+      // Quand un groupe est sélectionné, uncheck toutes les checkbox
       mmi.forEach(check => {
          if ( check.checked) {
             check.click();
@@ -392,7 +326,6 @@ let getStorage = function() {
       }
       
    }
-
 
 
    let eventFiltered = [];
